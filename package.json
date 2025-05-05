@@ -1,0 +1,24 @@
+{
+  "name": "b-web-200-par-2-1-epytodo-ariel.amriou",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpitechPGEPromo2029/B-WEB-200-PAR-2-1-epytodo-ariel.amriou.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpitechPGEPromo2029/B-WEB-200-PAR-2-1-epytodo-ariel.amriou/issues"
+  },
+  "homepage": "https://github.com/EpitechPGEPromo2029/B-WEB-200-PAR-2-1-epytodo-ariel.amriou#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "http": "^0.0.1-security"
+  }
+}
