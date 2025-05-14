@@ -6,9 +6,10 @@ const db = require('../../../config/db.js');
 
 
 router.post('/', async (req, res) => {
-
     let user = req.body;
     const salt = await bcrypt.genSalt(10)
+    let token = 0;
+    let jwtSecretKey = process.env.SECRET
 
     user.password = await bcrypt.hash(user.password, salt)
     const insertQuery = `INSERT INTO user (email, name, firstname, password) VALUES ("${user.email}", "${user.name}", "${user.firstname}", "${user.password}");`;
@@ -19,8 +20,10 @@ router.post('/', async (req, res) => {
         console.error({ "msg" : "Bad parameter" })
         console.error(error)
     }
-    res.json("Success")
-    console.log(`Successfully created an account for ${user.email}`)
+    const id = `SELECT id FROM user WHERE email=${user.email};`;
+    token = jwt.sign(id, jwtSecretKey)
+    res.json({ token : token})
+    console.log({"Successfully created an account for": `${user.email}`, "with this token": `${token}`})
 });
 
 module.exports = router;

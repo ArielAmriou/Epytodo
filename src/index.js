@@ -1,5 +1,5 @@
 /* init dotenv */
-require('dotenv').config()
+const dotenv = require('dotenv').config()
 
 /* init express */
 const express = require("express");
