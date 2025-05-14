@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const db = require('../../../config/db.js');
@@ -10,15 +11,16 @@ router.post('/', async (req, res) => {
     const salt = await bcrypt.genSalt(10)
 
     user.password = await bcrypt.hash(user.password, salt)
-    const insertQuery = `INSERT INTO user (password, name, firstname, email) VALUES ("${user.password}", "${user.name}", "${user.firstname}", "${user.email}");`;
+    const insertQuery = `INSERT INTO user (email, name, firstname, password) VALUES ("${user.email}", "${user.name}", "${user.firstname}", "${user.password}");`;
     try {
         await db.promise().query(insertQuery);
     } catch (error) {
         res.json({ "msg" : "Bad parameter" })
-        console.error('{ "msg" : "Bad parameter" }')
+        console.error({ "msg" : "Bad parameter" })
         console.error(error)
     }
-    res.json(`{Successfully created an account for ${user.firstname}}`)
+    res.json("Success")
+    console.log(`Successfully created an account for ${user.email}`)
 });
 
 module.exports = router;
