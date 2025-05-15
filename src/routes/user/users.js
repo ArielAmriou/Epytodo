@@ -7,14 +7,14 @@ router.get('/:users', (req, res) => {
     const user = req.params.user;
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
-            res.status(400).json({"msg": "Internal server error"});
+            res.status(500).json({"msg": "Internal server error"});
             return;
         }
         if (!rows.length) {
             res.status(400).json({"msg": "Not found"});
             return;
         }
-        res.json(rows);
+        res.status(201).json(rows);
     })
 });
 // db.query(`UPDATE user SET email = "${email}", password = "${password}", name = "${name}", firstname = "${firstname}" WHERE id = "${user}";`, (err, rows) => {

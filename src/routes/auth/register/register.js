@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         httpOnly: true,
         secure: true,
     })
-    res.json({ token : token})
+    res.status(201).json({ token : token})
     console.log({"Successfully created an account for": `${user.email}`, "with this token": `${token}`})
     return token
 });

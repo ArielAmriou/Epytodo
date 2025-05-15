@@ -15,9 +15,9 @@ router.get('/:user', async (req, res) => {
     }
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
-            return res.status(400).json({"msg": "Internal server error"});
+            return res.status(500).json({"msg": "Internal server error"});
         }
-        res.json(rows);
+        res.status(201).json(rows);
     })
 
 });

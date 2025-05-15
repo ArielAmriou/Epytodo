@@ -43,11 +43,11 @@ router.post('/', async (req, res) => {
             httpOnly: true,
             secure: true,
         })
-        res.json({"token": `${newToken}`})
+        res.status(201).json({"token": `${newToken}`})
         console.log({"msg": `Successfully logged in : ${user.email}`})
         return newToken
     } else {
-        res.json({"msg": "Invalid Credentials"})
+        res.status(400).json({"msg": "Invalid Credentials"})
         console.error({"msg": `Bad Credentials for : ${user.email}`})
     }
 });
