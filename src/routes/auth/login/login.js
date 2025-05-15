@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const db = require('../../../config/db.js');
+const check_token = require('../check_token');
 
 function create_token(id) {
     let jwtSecretKey = process.env.SECRET
