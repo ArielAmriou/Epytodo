@@ -8,14 +8,14 @@ router.get('/:user', async (req, res) => {
     const user = req.params.user
 
     if (!token) {
-        return res.json({ "msg": "No token, authorization denied" })
+        return res.status(400).json({ "msg": "No token, authorization denied" })
     }
     if (!check_token(token)) {
-        return res.json({"msg": "Token is not valid"})
+        return res.status(400).json({"msg": "Token is not valid"})
     }
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
-            return res.json({"msg": "Internal server error"});
+            return res.status(400).json({"msg": "Internal server error"});
         }
         res.json(rows);
     })

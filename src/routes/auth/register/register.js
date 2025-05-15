@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     try {
         await db.promise().query(insertQuery);
     } catch (error) {
-        res.json({ "msg" : "Bad parameter" })
+        res.status(400).json({ "msg" : "Bad parameter" })
         console.error({ "msg" : "Bad parameter" })
         console.error(error)
         return

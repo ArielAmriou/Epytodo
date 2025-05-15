@@ -7,11 +7,11 @@ router.get('/:users', (req, res) => {
     const user = req.params.user;
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
-            res.json({"msg": "Internal server error"});
+            res.status(400).json({"msg": "Internal server error"});
             return;
         }
         if (!rows.length) {
-            res.json({"msg": "Not found"});
+            res.status(400).json({"msg": "Not found"});
             return;
         }
         res.json(rows);

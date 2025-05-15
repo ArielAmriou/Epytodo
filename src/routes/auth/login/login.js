@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     try {
         id = await db.promise().query(id_query)
     } catch (error) {
-        res.json({"msg": "Invalid Credentials"})
+        res.status(400).json({"msg": "Invalid Credentials"})
         console.error({"msg": `Bad Credentials for : ${user.email} user isn't in db`});
         return
     }
@@ -32,9 +32,9 @@ router.post('/', async (req, res) => {
     try {
         checkPassword = await bcrypt.compare(user.password, password[0][0].password)
     } catch (error) {
-    res.json({"msg": "Invalid Credentials"})
-    console.error({"msg": `Bad Credentials for : ${user.email} user isn't in db`});
-    return
+        res.status(400).json({"msg": "Invalid Credentials"})
+        console.error({"msg": `Bad Credentials for : ${user.email} user isn't in db`});
+        return
     }
     //si le password est bon on créé un token, sinon on renvoie un message d'erreur #logique
     if (checkPassword) {
