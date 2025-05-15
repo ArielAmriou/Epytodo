@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../../config/db.js');
 const router = express.Router();
+const check_token = require('../check_token');
 
 router.get('/:user', (req, res) => {
     const user = req.params.user;
@@ -8,11 +9,11 @@ router.get('/:user', (req, res) => {
         if (err) {
             res.json({"msg": "Internal server error"});
             return;
-        };
+        }
         if (!rows.length) {
             res.json({"msg": "Not found"});
             return;
-        };
+        }
         res.json(rows);
     })
 });
