@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const db = require('../../../config/db.js');
-const check_token = require('../check_token');
 
 function create_token(id) {
     let jwtSecretKey = process.env.SECRET
@@ -37,9 +36,13 @@ router.post('/', async (req, res) => {
     console.error({"msg": `Bad Credentials for : ${user.email} user isn't in db`});
     return
     }
-    //si le password est bon on créé un token, sinon on renvoie un message d'erreur
+    //si le password est bon on créé un token, sinon on renvoie un message d'erreur #logique
     if (checkPassword) {
         newToken = create_token(id)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+        })
         res.json({"token": `${newToken}`})
         console.log({"msg": `Successfully logged in : ${user.email}`})
         return newToken

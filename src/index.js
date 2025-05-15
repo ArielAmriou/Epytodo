@@ -11,17 +11,18 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
-const routerUser = require('./routes/user/user.js');
+//const routerUsers = require('./routes/user/users.js');
 const routerRegister = require('./routes/auth/register/register.js');
 const routerLogin= require('./routes/auth/login/login.js');
+const routerUserInfo = require('./routes/user/user')
 
-app.use("/user", routerUser);
-app.use("/register", routerRegister);
+//app.use("/users", routerUsers)
+app.use("/register", routerRegister)
 app.use("/login", routerLogin)
-
-app.get("/:universalURL", (req, res) => {
+app.use("/user", routerUserInfo)
+/*app.get("/:universalURL", (req, res) => {
     res.send("404 URL NOT FOUND");
-});
+});*/
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });

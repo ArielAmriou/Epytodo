@@ -19,9 +19,14 @@ router.post('/', async (req, res) => {
         res.json({ "msg" : "Bad parameter" })
         console.error({ "msg" : "Bad parameter" })
         console.error(error)
+        return
     }
     const id = `SELECT id FROM user WHERE email=${user.email};`;
     token = jwt.sign(id, jwtSecretKey)
+    res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+    })
     res.json({ token : token})
     console.log({"Successfully created an account for": `${user.email}`, "with this token": `${token}`})
     return token

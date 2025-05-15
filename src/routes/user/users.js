@@ -1,9 +1,9 @@
 const express = require('express');
 const db = require('../../config/db.js');
 const router = express.Router();
-const check_token = require('../check_token');
+const check_token = require('../auth/check_token');
 
-router.get('/:user', (req, res) => {
+router.get('/:users', (req, res) => {
     const user = req.params.user;
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
@@ -17,10 +17,7 @@ router.get('/:user', (req, res) => {
         res.json(rows);
     })
 });
-
 // db.query(`UPDATE user SET email = "${email}", password = "${password}", name = "${name}", firstname = "${firstname}" WHERE id = "${user}";`, (err, rows) => {
 //     if (err) throw err;
 //     console.log(rows.affectedRows + " record(s) updated");
 // })
-
-module.exports = router;
