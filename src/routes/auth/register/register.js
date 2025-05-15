@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
     token = jwt.sign(id, jwtSecretKey)
     res.json({ token : token})
     console.log({"Successfully created an account for": `${user.email}`, "with this token": `${token}`})
+    return token
 });
 
 module.exports = router;
