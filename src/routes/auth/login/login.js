@@ -13,7 +13,6 @@ function create_token(id) {
 router.post('/', async (req, res) => {
     //initialisation des variables/création des query
     let user = req.body;
-    const token = req.get('Authorization')
     let newToken = null
     let id = null
     const passwordQuery = `SELECT password FROM user WHERE email="${user.email}"`;
@@ -22,10 +21,6 @@ router.post('/', async (req, res) => {
     const id_query = `SELECT id FROM user WHERE email="${user.email}";`
 
     //teste si l'email est présente dans la db
-    if (check_token(token)) {
-        res.status(201).json({"token": `${token}`})
-        return token
-    }
     try {
         id = await db.promise().query(id_query)
     } catch (error) {
