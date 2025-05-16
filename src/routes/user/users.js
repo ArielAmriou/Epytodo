@@ -23,7 +23,7 @@ router.get('/:user', async (req, res) => {
             res.status(400).json({"msg": "Not found"});
             return;
         }
-        res.status(201).json(rows);
+        res.status(200).json(rows);
     })
 });
 
@@ -55,13 +55,12 @@ router.put('/:user', async (req, res) => {
             res.status(400).json({"msg": "Not found"});
             return;
         }
-        res.status(201).json(rows);
+        res.status(200).json(rows);
     })
 });
 
 router.delete('/:user', async (req, res) => {
     const user = req.params.user;
-    let body = req.body;
     let token = req.get('Authorization');
 
     if (!token) {
@@ -75,7 +74,7 @@ router.delete('/:user', async (req, res) => {
     } catch (error) {
         return res.status(500).json({"msg": "Internal server error"});
     }
-    res.status(201).json({ "msg": `Successfully deleted record number : ${user}` });
+    res.status(200).json({ "msg": `Successfully deleted record number : ${user}` });
 });
 
 module.exports = router;
