@@ -21,3 +21,4 @@ router.get('/:users', (req, res) => {
 //     if (err) throw err;
 //     console.log(rows.affectedRows + " record(s) updated");
 // })
+module.exports = router;

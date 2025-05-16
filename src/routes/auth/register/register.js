@@ -16,8 +16,8 @@ router.post('/', async (req, res) => {
     try {
         await db.promise().query(insertQuery);
     } catch (error) {
-        res.status(400).json({ "msg" : "Bad parameter" })
-        console.error({ "msg" : "Bad parameter" })
+        res.status(400).json({ "msg" : "Account already exists" })
+        console.error({ "msg" : " Account already exists" })
         console.error(error)
         return
     }

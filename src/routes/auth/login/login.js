@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const check_token = require('../check_token');
 const db = require('../../../config/db.js');
 
 function create_token(id) {
@@ -12,6 +13,7 @@ function create_token(id) {
 router.post('/', async (req, res) => {
     //initialisation des variables/création des query
     let user = req.body;
+    const token = req.headers.cookie
     let newToken = null
     let id = null
     const passwordQuery = `SELECT password FROM user WHERE email="${user.email}"`;
@@ -20,6 +22,10 @@ router.post('/', async (req, res) => {
     const id_query = `SELECT id FROM user WHERE email="${user.email}";`
 
     //teste si l'email est présente dans la db
+    if (check_token(token)) {
+        res.status(201).json({"token": `${token}`})
+        return token
+    }
     try {
         id = await db.promise().query(id_query)
     } catch (error) {
@@ -39,7 +45,7 @@ router.post('/', async (req, res) => {
     //si le password est bon on créé un token, sinon on renvoie un message d'erreur #logique
     if (checkPassword) {
         newToken = create_token(id)
-        res.cookie('token', token, {
+        res.cookie('token', newToken, {
             httpOnly: true,
             secure: true,
         })
