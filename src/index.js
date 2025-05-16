@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: false}))
 
 const routerUsers = require('./routes/user/users.js');
 const routerRegister = require('./routes/auth/register/register.js');
-const routerLogin= require('./routes/auth/login/login.js');
+const routerLogin = require('./routes/auth/login/login.js');
 const routerUserInfo = require('./routes/user/user')
 const routerTodos = require('./routes/todos/todos.js')
 
