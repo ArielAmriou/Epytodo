@@ -13,7 +13,7 @@ function create_token(id) {
 router.post('/', async (req, res) => {
     //initialisation des variables/création des query
     let user = req.body;
-    const token = req.headers.cookie
+    const token = req.get('Authorization')
     let newToken = null
     let id = null
     const passwordQuery = `SELECT password FROM user WHERE email="${user.email}"`;

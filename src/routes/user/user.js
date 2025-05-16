@@ -4,7 +4,7 @@ const router = express.Router();
 const check_token = require('../auth/check_token');
 
 router.get('/:user', async (req, res) => {
-    let token = req.headers.cookie;
+    let token = req.get('Authorization');
     const user = req.params.user
 
     if (!token) {

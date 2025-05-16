@@ -31,7 +31,7 @@ router.put('/:user', async (req, res) => {
     const user = req.params.user;
     let body = req.body;
     const salt = await bcrypt.genSalt(10);
-    let token = req.headers.cookie;
+    let token = req.get('Authorization');
 
     body.password = await bcrypt.hash(body.password, salt);
     if (!token) {
@@ -62,7 +62,7 @@ router.put('/:user', async (req, res) => {
 router.delete('/:user', async (req, res) => {
     const user = req.params.user;
     let body = req.body;
-    let token = req.headers.cookie;
+    let token = req.get('Authorization');
 
     if (!token) {
         return res.status(400).json({ "msg": "No token, authorization denied" })

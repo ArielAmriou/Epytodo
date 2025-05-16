@@ -26,6 +26,9 @@ router.post('/', async (req, res) => {
     res.cookie('token', token, {
         httpOnly: true,
         secure: true,
+        headers: {
+            "Authorization":"Bearer"
+        }
     })
     res.status(201).json({ token : token})
     console.log({"Successfully created an account for": `${user.email}`, "with this token": `${token}`})
