@@ -61,7 +61,7 @@ router.put('/:user', async (req, res) => {
 
 router.delete('/:user', async (req, res) => {
     const user = req.params.user;
-    let token = req.get('Authorization');
+    let token = req.headers.cookie;
 
     if (!token) {
         return res.status(400).json({ "msg": "No token, authorization denied" })
