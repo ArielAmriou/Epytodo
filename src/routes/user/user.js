@@ -13,12 +13,12 @@ router.get('/:user', async (req, res) => {
     if (!check_token(token)) {
         return res.status(400).json({"msg": "Token is not valid"})
     }
-    db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
-        if (err) {
-            return res.status(500).json({"msg": "Internal server error"});
-        }
-        res.status(201).json(rows);
-    })
+    try {
+        await db.promise().query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`);
+    } catch (error) {
+        return res.status(500).json({"msg": "Internal server error"});
+    }
+    res.status(201).json(rows);
 });
 
 module.exports = router;

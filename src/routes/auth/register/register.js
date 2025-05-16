@@ -7,7 +7,7 @@ const db = require('../../../config/db.js');
 
 router.post('/', async (req, res) => {
     let user = req.body;
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt(10);
     let token = 0;
     let jwtSecretKey = process.env.SECRET
 
