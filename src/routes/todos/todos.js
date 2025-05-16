@@ -22,7 +22,29 @@ router.post('/', async (req, res) => {
     })
 });
 
-router.get('/:user', async (req, res) => {
+router.get('/', async (req, res) => {
+    let token = req.headers.cookie;
+
+    if (!token) {
+        return res.status(400).json({ "msg": "No token, authorization denied" })
+    }
+    if (!check_token(token)) {
+        return res.status(400).json({"msg": "Token is not valid"})
+    }
+    db.query(`SELECT * FROM todo;`, (err, rows) => {
+        if (err) {
+            res.status(500).json({"msg": "Internal server error"});
+            return;
+        }
+        if (!rows.length) {
+            res.status(400).json({"msg": "Not found"});
+            return;
+        }
+        res.status(200).json(rows);
+    })
+});
+
+router.get('/:todo', async (req, res) => {
     const user = req.params.user;
     let token = req.headers.cookie;
 
@@ -43,6 +65,24 @@ router.get('/:user', async (req, res) => {
         }
         res.status(200).json(rows);
     })
+});
+
+router.delete('/:todo', async (req, res) => {
+    const todo = req.params.todo;
+    let token = req.headers.cookie;
+
+    if (!token) {
+        return res.status(400).json({ "msg": "No token, authorization denied" })
+    }
+    if (!check_token(token)) {
+        return res.status(400).json({"msg": "Token is not valid"})
+    }
+    try {
+        await db.promise().query(`DELETE FROM todo WHERE id = "${todo}";`);
+    } catch (error) {
+        return res.status(500).json({"msg": "Internal server error"});
+    }
+    res.status(200).json({ "msg": `Successfully deleted record number : ${todo}` });
 });
 
 module.exports = router;
