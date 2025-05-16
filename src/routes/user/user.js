@@ -19,7 +19,6 @@ router.get('/:user', async (req, res) => {
         }
         res.status(201).json(rows);
     })
-
 });
 
 module.exports = router;
