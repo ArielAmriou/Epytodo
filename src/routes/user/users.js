@@ -3,7 +3,7 @@ const db = require('../../config/db.js');
 const router = express.Router();
 const check_token = require('../auth/check_token');
 
-router.get('/:users', (req, res) => {
+router.get('/:user', (req, res) => {
     const user = req.params.user;
     db.query(`SELECT * FROM user WHERE id = "${user}" or email = "${user}";`, (err, rows) => {
         if (err) {
